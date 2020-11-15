@@ -17,11 +17,18 @@ Route::get('/', function () {
     return view('auth/login');
 });
 
+
 Route::get('/test1', function () {
-    return view('test/page1');
+
+    $meals = DB::table('meals')->get();
+
+    return view('test/page1', ['meals' => $meals]);
 });
+
 
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('Meal','App\Http\Controllers\setMealController');
