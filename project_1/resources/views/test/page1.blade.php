@@ -86,7 +86,26 @@
   Set Meal
 </button>
 
+
 <!-- Modal -->
+
+
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+@if(Session::has('message'))
+<div class="alert alert-success">
+{{Session::get('message')}}
+</div>
+@endif
+
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -98,71 +117,100 @@
       </div>
       <div class="modal-body">
 
-           <div class="form-group row">
-  <label for="example-date-input" class="col-2 col-form-label">Date</label>
-  <script>
-  let today = new Date().toISOString().substr(0, 10);
-document.querySelector("#today").value = today;
-  </script>
-  <div class="col-10">
-    <input class="form-control" type="date" value="" id="today">
-  </div>
-</div>
-                       
 
-                              <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                  <label class="input-group-text" for="inputGroupSelect01">Breakfast</label>
-                                </div>
-                                <select class="custom-select" id="inputGroupSelect01">
-                                  <option selected>Choose...</option>
-                                  <option value="0">Null</option>
-                                  <option value="1">Taking</option>
-                                </select>
-                              </div>
-
-                              <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                  <label class="input-group-text" for="inputGroupSelect01">Lunch</label>
-                                </div>
-                                <select class="custom-select" id="inputGroupSelect01">
-                                  <option selected>Choose...</option>
-                                  <option value="0">Null</option>
-                                  <option value="1">Taking</option>
-                                </select>
-                              </div>
-
-                              <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                  <label class="input-group-text" for="inputGroupSelect01">Dinner</label>
-                                </div>
-                                <select class="custom-select" id="inputGroupSelect01">
-                                  <option selected>Choose...</option>
-                                  <option value="0">Null</option>
-                                  <option value="1">Taking</option>
-                                </select>
-                              </div>
+      <form method="POST" action="{{ route('Meal.store') }}"
+      enctype="multipart/form-data" >
+      @csrf
 
 
-                           </div>
+      <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" name="name" placeholder="Entre Name">
+      </div>
 
+      <div class="form-group">
+      <label for="date">Date</label>
+      <input type="date" class="form-control" name="date" placeholder="Entre Name">
+      </div>
 
+      <div class="form-group">
+      <label for="bf">Breakfast</label>
+      <select name="breakfast" class="form-control">
+                                  <option value="0">No</option>
+                                  <option value="1">yes</option>
+                               </select>
+      </div>
 
- </div>
+      <div class="form-group">
+      <label for="lu">Lunch</label>
+      <select name="lunch" class="form-control">
+                                  <option value="0">No</option>
+                                  <option value="1">yes</option>
+                               </select>
+      </div>
+
+      <div class="form-group">
+      <label for="di">Dinner</label>
+      <select name="dinner" class="form-control">
+                                  <option value="0">No</option>
+                                  <option value="1">yes</option>
+                               </select>
+
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="submit" class="btn btn-primary">Save Data</button>
       </div>
-    </div>
+
+      </form>
+
+      </div>
+      
+
+
+
   </div>
 </div>
+
 
 
 
     
   </div>
 </div>
+
+<div class="row">
+    <div class="col-sm-12">
+      <table class="table table-striped">
+        <tr>
+          <th>SN</th>
+          <th>Name</th>
+          <th>Date</th>
+          <th>Breakfast</th>
+          <th>Lunch</th>
+          <th>Dinner</th>
+          <th>Action</th>
+        </tr>
+    @foreach($meals as $key => $data)
+    <tr>    
+      <td>{{$data->id}}</td>
+      <td>{{$data->name}}</td>
+      <td>{{$data->date}}</td>
+      <td>{{$data->breakfast}}</td> 
+      <td>{{$data->lunch}}</td>
+      <td>{{$data->dinner}}</td>     
+      <td><Button action="" class = "btn btn-info">Edit</Button>
+      <Button action="" class = "btn btn-danger">Delete</Button>
+      </td>
+    </tr>
+    @endforeach 
+      </table>
+    </div>
+  </div>
+
+
 </div>
+
+  
 
         
         <main class="py-4">
