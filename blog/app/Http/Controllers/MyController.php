@@ -18,5 +18,19 @@ class MyController extends Controller
 
     }
 
+    public function fstMethod()
+    {
+        return redirect('/2nd');
+    }
 
+    public function sndMethod()
+    {
+        return '2nd';
+    }
+
+    public function download()
+    {
+        $path = 'demo.txt';
+        return response()->download($path);
+    }
 }
