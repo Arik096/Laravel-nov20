@@ -39,3 +39,8 @@ $router->post('/{name}/{age}[/{city}]',function($name,$age,$city=NULL){
 $router->get('/{myfunc}','MyController@Myfunction');
 
 $router->get('/','MyController@Myfunction');
+
+$router->get('/1st','MyController@fstMethod');
+$router->get('/2nd', 'MyController@sndMethod');
+
+$router->get('/download','MyController@download');
